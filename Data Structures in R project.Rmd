@@ -1,8 +1,18 @@
 ---
 title: "Data Structures in R"
-output: 'html_document'
+output: html_document
 date: "2025-09-27"
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(conflicted) 
+library(tidyverse)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
+covid_df<-read_csv('covid19.csv')
+problems(covid_df)
+```
 
 # Positive Covid-19 Cases
 
@@ -10,23 +20,15 @@ date: "2025-09-27"
 
 (What the project is about) (What your goal is in this project) This project will analyze data collected from different provinces of several countries to determine which country reports the highest number of positive cases in reference to the number of tests conducted
 
-## Load Packages
-
-```{r}
-install.packages('tidyverse')
-library(tidyverse)
-library(readr)
-```
-
 ## Read Covid table
 
 ```{r}
-covid_df<-read_csv('covid19.csv')
 dim(covid_df)
 vector_cols<-colnames(covid_df)
 print(vector_cols)
-print(head(covid_df))
+head(covid_df)
 glimpse(covid_df)
+covid_df
 ```
 
 ## Value of Glimpse Function
@@ -35,6 +37,7 @@ The glimpse function is particularly useful since it displays all columns with t
 
 ```{r}
 covid_df_all_states<-covid_df%>%filter(Province_State=='All States')%>%select(-Province_State)
+print(covid_df_all_states)
 ```
 
 ## Reason to eliminate province state column
