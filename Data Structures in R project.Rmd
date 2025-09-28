@@ -1,6 +1,6 @@
 ---
 title: "Data Structures in R"
-output: html_document
+output: 'html_document'
 date: "2025-09-27"
 ---
 
@@ -10,10 +10,17 @@ date: "2025-09-27"
 
 (What the project is about) (What your goal is in this project) This project will analyze data collected from different provinces of several countries to determine which country reports the highest number of positive cases in reference to the number of tests conducted
 
+## Load Packages
+
 ```{r}
 install.packages('tidyverse')
 library(tidyverse)
 library(readr)
+```
+
+## Read Covid table
+
+```{r}
 covid_df<-read_csv('covid19.csv')
 dim(covid_df)
 vector_cols<-colnames(covid_df)
@@ -22,11 +29,15 @@ print(head(covid_df))
 glimpse(covid_df)
 ```
 
+## Value of Glimpse Function
+
 The glimpse function is particularly useful since it displays all columns with their respective data types and gives some examples of the data in the cells
 
 ```{r}
 covid_df_all_states<-covid_df%>%filter(Province_State=='All States')%>%select(-Province_State)
 ```
+
+## Reason to eliminate province state column
 
 'r (Province_State)' column is removed since all values in that column are "All States" after filtration making it redundant
 
@@ -38,11 +49,13 @@ covid_top_10<-head(covid_df_all_states_daily_sum,10)
 
 ```
 
+## Display top 10 covid
+
 ```{r}
 print(covid_top_10)
 ```
 
-Now we have extracted the top 10 countries have had the highest number of positive against the number of tests
+Now we have extracted the top 10 countries have had the highest number of positive against the number of tests \## Name Countries
 
 ```{r}
 countries<-covid_top_10$Country_Region
@@ -55,6 +68,8 @@ names(tested_cases)<-countries
 names(active_cases)<-countries
 names(hospitalized_cases)<-countries
 ```
+
+## Top 3
 
 To determine top 3 positive against tested cases
 
@@ -79,6 +94,8 @@ covid_mat<-rbind(united_kingdom,united_states,turkey)
 colnames(covid_mat)<-c('Ratio','tested','positive','active','hospitalized')
 print(covid_mat)
 ```
+
+## Storing all data for future reference
 
 Storing all the data
 
